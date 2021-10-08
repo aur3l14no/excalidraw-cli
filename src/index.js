@@ -15,7 +15,6 @@ Hook(['@excalidraw/excalidraw'], function (exports, name, basedir) {
 })
 
 const Excalidraw = require('@excalidraw/excalidraw')
-const { Canvas } = require('canvas')
 
 const readExcalidrawFile = async path => {
     try {
@@ -42,8 +41,7 @@ const main = async () => {
     const svg = await Excalidraw.exportToSvg({ ...excalidrawFile })
     const svgHtml = await svg.outerHTML
     const inlinedSvgHtml = await inlineFontInSvg(svgHtml)
-    const canvas = Canvas
     return await fs.writeFile(outputFile, inlinedSvgHtml, 'utf8')
 }
 
-main().then(() => process.exit())
+main().finally(() => process.exit())
